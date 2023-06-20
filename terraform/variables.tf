@@ -10,9 +10,10 @@ variable "route53_zone" {
 
 variable "access_key" {
   type = string
-  description = ""
+  description = "access key you create for your aws user"
 }
 
 variable "secret_key" {
   type = string
+  description = "secret key you create for your aws user"
 }
