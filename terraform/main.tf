@@ -26,8 +26,7 @@ data "aws_route53_zone" "zone" {
 }
 
 resource "aws_cloudfront_response_headers_policy" "security_headers_policy" {
-  count = var.secure_response_headers_id == "" ? 1 : 0
-  name  = "strict-security-headers-policy"
+  name  = "security-headers-policy"
 
   security_headers_config {
     content_type_options {
@@ -85,13 +84,6 @@ resource "aws_route53_record" "cert_validation" {
 
 resource "aws_s3_bucket" "web_bucket" {
   bucket = var.domain_name
-}
-
-resource "aws_s3_bucket_ownership_controls" "bucket_owner" {
-  bucket = aws_s3_bucket.web_bucket.id
-  rule {
-    object_ownership = "BucketOwnerPreferred"
-  }
 }
 
 resource "aws_s3_bucket_public_access_block" "bucket_acl_allow" {
@@ -166,7 +158,7 @@ resource "aws_cloudfront_distribution" "prod_distribution" {
   }
 
   default_cache_behavior {
-    response_headers_policy_id = var.secure_response_headers_id == "" ? aws_cloudfront_response_headers_policy.security_headers_policy[0].id : var.secure_response_headers_id
+    response_headers_policy_id = aws_cloudfront_response_headers_policy.security_headers_policy.id 
     allowed_methods            = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods             = ["GET", "HEAD"]
     target_origin_id           = "S3-${aws_s3_bucket.web_bucket.bucket}"
@@ -188,7 +180,7 @@ resource "aws_cloudfront_distribution" "prod_distribution" {
 
   # Cache behavior with precedence 0
   ordered_cache_behavior {
-    response_headers_policy_id = var.secure_response_headers_id == "" ? aws_cloudfront_response_headers_policy.security_headers_policy[0].id : var.secure_response_headers_id
+    response_headers_policy_id = aws_cloudfront_response_headers_policy.security_headers_policy.id
     path_pattern               = "index.html"
     allowed_methods            = ["GET", "HEAD", "OPTIONS"]
     cached_methods             = ["GET", "HEAD", "OPTIONS"]
@@ -227,9 +219,6 @@ resource "aws_cloudfront_distribution" "prod_distribution" {
     ssl_support_method  = "sni-only"
   }
 
-  tags = {
-    Environment = var.environment
-  }
 }
 
 # Create Route 53

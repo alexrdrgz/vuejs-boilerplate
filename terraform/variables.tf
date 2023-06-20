@@ -3,17 +3,14 @@ variable "domain_name" {
   description = "The domain name for the site"
 }
 
-variable "bucket_name" {
-  type        = string
-  description = "The name of the bucket"
-}
-
 variable "route53_zone" {
   type = string
+  description = "the name of the domain that you have purchased on aws route53"
 }
 
 variable "access_key" {
   type = string
+  description = ""
 }
 
 variable "secret_key" {
