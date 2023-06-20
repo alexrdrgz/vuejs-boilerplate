@@ -8,6 +8,10 @@ variable "bucket_name" {
   description = "The name of the bucket"
 }
 
+variable "route53_zone" {
+  type = string
+}
+
 variable "access_key" {
   type = string
 }
