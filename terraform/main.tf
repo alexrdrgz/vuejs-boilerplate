@@ -116,6 +116,7 @@ resource "aws_s3_bucket_acl" "web_bucket" {
 
 resource "aws_s3_bucket_policy" "web_bucket" {
   depends_on = [aws_s3_bucket_ownership_controls.bucket_owner]
+  
   bucket     = aws_s3_bucket.web_bucket.id
   policy     = <<EOF
 {
