@@ -16,4 +16,4 @@ jobs:
             aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
             aws-region: us-west-2
         - name: Deploy to S3
-          run: aws s3 sync ..../frontend s3://boilerplate-alexrodriguez.link
+          run: aws s3 sync ./frontend/ s3://boilerplate-alexrodriguez.link
