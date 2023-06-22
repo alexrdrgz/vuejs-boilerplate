@@ -25,37 +25,8 @@ data "aws_route53_zone" "zone" {
   private_zone = false
 }
 
-resource "aws_cloudfront_response_headers_policy" "security_headers_policy" {
-  name  = "security-headers-policy"
-
-  security_headers_config {
-    content_type_options {
-      override = true
-    }
-    frame_options {
-      frame_option = "DENY"
-      override     = true
-    }
-    referrer_policy {
-      referrer_policy = "same-origin"
-      override        = true
-    }
-    xss_protection {
-      mode_block = true
-      protection = true
-      override   = true
-    }
-    strict_transport_security {
-      access_control_max_age_sec = "63072000"
-      include_subdomains         = true
-      preload                    = true
-      override                   = true
-    }
-    content_security_policy {
-      content_security_policy = "frame-ancestors 'none'; default-src 'none'; img-src 'self'; script-src 'self'; style-src 'self'; object-src 'none'"
-      override                = true
-    }
-  }
+data "aws_cloudfront_response_headers_policy" "simpleCors" {
+  name = "Managed-SimpleCORS"
 }
 
 resource "aws_acm_certificate" "cloudfront_cert" {
@@ -162,7 +133,7 @@ resource "aws_cloudfront_distribution" "prod_distribution" {
   }
 
   default_cache_behavior {
-    response_headers_policy_id = aws_cloudfront_response_headers_policy.security_headers_policy.id 
+    response_headers_policy_id = data.aws_cloudfront_response_headers_policy.simpleCors.id 
     allowed_methods            = ["DELETE", "GET", "HEAD", "OPTIONS", "PATCH", "POST", "PUT"]
     cached_methods             = ["GET", "HEAD"]
     target_origin_id           = "S3-${aws_s3_bucket.web_bucket.bucket}"
@@ -184,7 +155,7 @@ resource "aws_cloudfront_distribution" "prod_distribution" {
 
   # Cache behavior with precedence 0
   ordered_cache_behavior {
-    response_headers_policy_id = aws_cloudfront_response_headers_policy.security_headers_policy.id
+    response_headers_policy_id = data.aws_cloudfront_response_headers_policy.simpleCors.id 
     path_pattern               = "index.html"
     allowed_methods            = ["GET", "HEAD", "OPTIONS"]
     cached_methods             = ["GET", "HEAD", "OPTIONS"]
