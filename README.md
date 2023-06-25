@@ -1,7 +1,21 @@
 VueJS Boilerplate
 ===================================
 
-This project is a frontend boilerplate that provides a starting point for developing web applications using VueJS. It includes infrastructure as code (IaC) using Terraform to deploy an AWS CloudFront distribution and S3 bucket. Additionally, a GitHub Actions CD pipeline is already set up to streamline the deployment process.
+This project is a VueJS boilerplate that provides a starting point for developing web applications using VueJS. It includes infrastructure as code (IaC) using Terraform to deploy an AWS CloudFront distribution and S3 bucket. Additionally, a GitHub Actions CD pipeline is already set up to streamline the deployment process.
+
+The VueJS code is untouched using `npm init vue@latest`. Below is the following configurations I prompted, feel free to replace project folder with another vuejs configuration. 
+
+```
+✔ Project name: … vue-project
+✔ Add TypeScript? … No / Yes
+✔ Add JSX Support? … No / Yes
+✔ Add Vue Router for Single Page Application development? … No / Yes
+✔ Add Pinia for state management? … No / Yes
+✔ Add Vitest for Unit Testing? … No / Yes
+✔ Add an End-to-End Testing Solution? › No
+✔ Add ESLint for code quality? … No / Yes
+✔ Add Prettier for code formatting? … No / Yes
+```
 
 Table of Contents
 -----------------
@@ -119,7 +133,7 @@ The CD pipeline will automatically deploy your application whenever changes are 
 Usage
 -----
 
-To start using the frontend boilerplate and begin developing your web application, follow these steps:
+To start using the vuejs boilerplate and begin developing your web application, follow these steps:
 
 1.  Update the necessary HTML and CSS files to match your project requirements.
 
@@ -143,5 +157,5 @@ Contact
 
 If you have any questions or suggestions regarding this project, feel free to contact us:
 
--   Email: <your-email@example.com>
--   GitHub: your-username
+-   Email: <contact@alexrodriguez.io>
+-   GitHub: alexrdrgz

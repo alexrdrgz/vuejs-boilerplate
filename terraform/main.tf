@@ -14,7 +14,7 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket = "alex-rodriguez-tfstate"
+    bucket = "tfstate-bucket"
     key    = "frontend-boilerplate/terraform.tfstate"
     region = "us-west-2"
   }
