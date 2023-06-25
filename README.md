@@ -1,19 +1,19 @@
-Frontend Boilerplate - HTML and CSS
+VueJS Boilerplate
 ===================================
 
-This project is a frontend boilerplate that provides a starting point for developing web applications using HTML and CSS. It includes infrastructure as code (IaC) using Terraform to deploy an AWS CloudFront distribution and S3 bucket. Additionally, a GitHub Actions CD pipeline is already set up to streamline the deployment process.
+This project is a frontend boilerplate that provides a starting point for developing web applications using VueJS. It includes infrastructure as code (IaC) using Terraform to deploy an AWS CloudFront distribution and S3 bucket. Additionally, a GitHub Actions CD pipeline is already set up to streamline the deployment process.
 
 Table of Contents
 -----------------
 
--   [Features](https://chat.openai.com/#features)
--   [Installation](https://chat.openai.com/#installation)
--   [Deployment of Infrastructure](https://chat.openai.com/#deployment-of-infrastructure)
--   [Continuous Deployment (CD)](https://chat.openai.com/#continuous-deployment-cd)
--   [Usage](https://chat.openai.com/#usage)
--   [Contributing](https://chat.openai.com/#contributing)
--   [License](https://chat.openai.com/#license)
--   [Contact](https://chat.openai.com/#contact)
+-   [Features](#features)
+-   [Installation](#installation)
+-   [Deployment of Infrastructure](#deployment-of-infrastructure)
+-   [Continuous Deployment (CD)](#continuous-deployment-cd)
+-   [Usage](#usage)
+-   [Contributing](#contributing)
+-   [License](#license)
+-   [Contact](#contact)
 
 Features
 --------
@@ -33,7 +33,7 @@ Follow these steps to set up the project:
 
 
     ```
-    git@github.com:alexrdrgz/vuejs-boilerplate.git 
+    git clone git@github.com:alexrdrgz/vuejs-boilerplate.git 
     cd vuejs-boilerplate
     aws configure
     ```
@@ -47,26 +47,41 @@ Deployment of Infrastructure
 
 To deploy the infrastructure and configure the AWS CloudFront distribution and S3 bucket, follow these steps:
 
-1.  Update the `main.tf` file located in the `infrastructure` directory. Locate the `terraform` block and replace the backend configuration with your own S3 bucket information:
+1.  Update the `main.tf` file located in the `terraform` directory. Locate the `terraform` block and replace the backend configuration with your own S3 bucket information:
 
-    `terraform { backend "s3" { bucket = "your-state-bucket" key = "frontend-boilerplate/terraform.tfstate" region = "us-west-2" } }`
+    ```
+    terraform { 
+        backend "s3" { 
+            bucket = "your-state-bucket" 
+            key = "frontend-boilerplate/terraform.tfstate" 
+            region = "us-west-2" 
+        } 
+    }
+    ```
 
     Replace `your-state-bucket` with the name of your own S3 bucket on your AWS account.
 
 2.  Create a `variables.tfvars` file and set the following variables:
 
-    `access_key = "" secret_key = "" domain_name = "boilerplate.alexrodriguez.link" route53_zone = "alexrodriguez.link"`
+    ```
+    access_key = "your-access-keys" 
+    secret_key = "your-secret-keys" 
+    domain_name = "your domain name (can be a subdomain)" 
+    route53_zone = "domain name you purchased or have DNS on route53"
+    ```
 
-    Replace the placeholders for `access_key` and `secret_key` with your AWS access key and secret key. Make sure to keep the values in quotes.
+    Replace the variable placeholders. Make sure to keep the values in quotes.
 
 3.  Initialize Terraform:
 
-    `$ cd infrastructure $ terraform init`
+    ```
+    cd infrastructure 
+    terraform init
+    ```
 
     Terraform will now use the backend configuration specified in the `main.tf` file to store the state.
 
 4.  Generate a Terraform plan to preview the changes:
-
 
     `$ terraform plan -var-file="variables.tfvars"`
 
@@ -91,16 +106,13 @@ This project includes a pre-configured GitHub Actions CD pipeline to automate th
 
     -   `AWS_ACCESS_KEY`: Set this to your AWS access key.
     -   `AWS_SECRET_KEY`: Set this to your AWS secret key.
+    -   `BUCKET_NAME`: Bucekt should be the same name as your site example.com
 
     Make sure to secure these secrets by not exposing them in any public repositories.
 
-4.  Navigate to the `.github/workflows/deploy.yml` file in your repository.
+4.  Navigate to the `.github/workflows/main.yml` file in your repository.
 
-5.  Update the following line to replace `your-bucket-name` with your S3 bucket name, which should be the domain name of your site:
-
-    `--bucket-name your-bucket-name`
-
-6.  Commit and push the changes to trigger the CD pipeline.
+5.  Commit and push the changes to trigger the CD pipeline.
 
 The CD pipeline will automatically deploy your application whenever changes are pushed to the main branch.
 
