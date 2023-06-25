@@ -31,7 +31,6 @@ Follow these steps to set up the project:
 
 1.  Clone the repository and set up AWS credentials:
 
-    bashCopy code
 
     `$ git clone https://github.com/your-username/your-project.git $ cd your-project $ aws configure`
 
@@ -46,15 +45,11 @@ To deploy the infrastructure and configure the AWS CloudFront distribution and S
 
 1.  Update the `main.tf` file located in the `infrastructure` directory. Locate the `terraform` block and replace the backend configuration with your own S3 bucket information:
 
-    plaintextCopy code
-
     `terraform { backend "s3" { bucket = "your-state-bucket" key = "frontend-boilerplate/terraform.tfstate" region = "us-west-2" } }`
 
     Replace `your-state-bucket` with the name of your own S3 bucket on your AWS account.
 
 2.  Create a `variables.tfvars` file and set the following variables:
-
-    plaintextCopy code
 
     `access_key = "" secret_key = "" domain_name = "boilerplate.alexrodriguez.link" route53_zone = "alexrodriguez.link"`
 
@@ -62,23 +57,18 @@ To deploy the infrastructure and configure the AWS CloudFront distribution and S
 
 3.  Initialize Terraform:
 
-    bashCopy code
-
     `$ cd infrastructure $ terraform init`
 
     Terraform will now use the backend configuration specified in the `main.tf` file to store the state.
 
 4.  Generate a Terraform plan to preview the changes:
 
-    bashCopy code
 
     `$ terraform plan -var-file="variables.tfvars"`
 
     Review the plan to ensure it matches your expectations.
 
 5.  Deploy the infrastructure:
-
-    bashCopy code
 
     `$ terraform apply -var-file="variables.tfvars"`
 
@@ -103,8 +93,6 @@ This project includes a pre-configured GitHub Actions CD pipeline to automate th
 4.  Navigate to the `.github/workflows/deploy.yml` file in your repository.
 
 5.  Update the following line to replace `your-bucket-name` with your S3 bucket name, which should be the domain name of your site:
-
-    yamlCopy code
 
     `--bucket-name your-bucket-name`
 
