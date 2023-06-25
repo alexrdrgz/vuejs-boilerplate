@@ -19,6 +19,11 @@ jobs:
             aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
             aws-region: us-west-2
         
+        - name: Install Dependencies
+          run: |
+            cd ./frontend/vue-project/
+            npm install
+        
         - name: Build
           run: |
             cd ./frontend/vue-project/
