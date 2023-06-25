@@ -32,9 +32,11 @@ Follow these steps to set up the project:
 1.  Clone the repository and set up AWS credentials:
 
 
-    `git@github.com:alexrdrgz/vuejs-boilerplate.git 
+    ```
+    git@github.com:alexrdrgz/vuejs-boilerplate.git 
     cd vuejs-boilerplate
-    aws configure`
+    aws configure
+    ```
 
     Follow the prompts to enter your AWS access key and secret key. Make sure you have the appropriate permissions to create and manage resources.
 
