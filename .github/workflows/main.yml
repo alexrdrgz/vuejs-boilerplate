@@ -21,17 +21,17 @@ jobs:
         
         - name: Install Dependencies
           run: |
-            cd ./frontend/vue-project/
+            cd ./vue-project/
             npm install
         
         - name: Build
           run: |
-            cd ./frontend/vue-project/
+            cd ./vue-project/
             npm run build
 
         - name: Deploy
           run: |
-            aws s3 sync ./frontend/vue-project/dist/ s3://boilerplate.alexrodriguez.link
+            aws s3 sync ./vue-project/dist/ s3://boilerplate.alexrodriguez.link
 
  
   
